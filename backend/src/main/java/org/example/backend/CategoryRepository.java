@@ -4,10 +4,9 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
-public interface ProductRepository extends MongoRepository<Product, String> {
+public interface CategoryRepository extends MongoRepository<Category, String>{
 
-    Optional<Product> findByName(String name);
+    Optional<Category> findByName(String name);
 
     void deleteByName(String name);
 }
-

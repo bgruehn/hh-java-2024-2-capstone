@@ -1,4 +1,5 @@
-import {useState} from 'react';
+import  {useState} from 'react';
+import axios from 'axios';
 
 type Product = {
     id: number;
@@ -23,10 +24,19 @@ const AddProductForm: React.FC = () => {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('Submitted Product:', product);
+        try {
+            const response = await axios.post('/api/products', product);
+            alert(`Produt ${response.data.name} erfolgreich hinzugefügt`);
+            setProduct({ id: Math.floor(Math.random() * 1000), name: '', price: 0.00, category:''});
+        } catch (error) {
+            console.error('Error adding product:', error);
+            alert('Produkt hinzufügen fehlgeschlagen');
+        }
     };
+
+
 
     return (
         <form onSubmit={handleSubmit}>

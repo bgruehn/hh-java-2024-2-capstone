@@ -1,27 +1,50 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useParams } from "react-router-dom";
+import './tableOrder.css';
 
-type Category = {
-    id: number;
-    name: string;
-};
+const Table01 = () => {
+    const [categories, setCategories] = useState([]);
+    const parameter = useParams();
+    const [showCategories, setShowCategories] = useState(false);
 
-const Table01: React.FC = () => {
-    const [category] = useState<Category>({
-        id: Math.floor(Math.random() * 100),
-        name: 'Tisch 1'
-    });
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await axios.get('/api/categories');
+                setCategories(response.data);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log('Submitted Category:', category);
+        if (showCategories) {
+            fetchCategories();
+        }
+    }, [showCategories]);
+
+    const handleShowCategories = () => {
+        setShowCategories(true);
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <p className={"head-tables"}>TISCH 1</p>
-            <input type="hidden" name="id" value={category.id} />
-            <br />
-        </form>
+        <div className="add-product-container">
+            <div className="head-add-product">{parameter.id}</div>
+            {!showCategories && (
+                <button className="custom-button-add" onClick={handleShowCategories}>
+                    Produkt hinzufügen
+                </button>
+            )}
+            {showCategories && categories.length > 0 && (
+                <div className="category-buttons">
+                    {categories.map(category => (
+                        <button key={category.id} className="category-button-add">
+                            {category.name}
+                        </button>
+                    ))}
+                </div>
+            )}
+        </div>
     );
 };
 

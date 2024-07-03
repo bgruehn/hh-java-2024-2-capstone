@@ -1,5 +1,6 @@
 package org.example.backend;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,19 +14,35 @@ public class ProductController {
     private final ProductRepository productRepository;
 
 
-    @GetMapping("/api/products")
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
-    }
+//    @GetMapping("/api/categories")
+//    public List<Category> getAllCategories() {
+//        return categoryRepository.findAll(Category);
+//    }
+//
+//    @GetMapping("/api/products")
+//    public List<Product> getAllProducts() {
+//        return productRepository.findAll(Product);
+//    }
+//
+//    @GetMapping("/api/products")
+//    public List<Product> getAllProductsByCategory() {
+//        return productRepository.getAllBy(Category);
+//    }
+
 
     @PostMapping
     public Product addProduct(@RequestBody Product product) {
         return productRepository.save(product);
     }
 
-    @PutMapping("/{name}")
+    @GetMapping
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+
+    @PutMapping("{name}")
     public Product updateProduct(@PathVariable String name, @RequestBody Product updatedProduct) {
-        Product existingProduct = productRepository.findById(name).orElse(null);
+        Product existingProduct = productRepository.findByName(name).orElse(null);
         if (existingProduct != null) {
             existingProduct.setName(updatedProduct.getName());
             existingProduct.setCategory(updatedProduct.getCategory());
@@ -35,11 +52,10 @@ public class ProductController {
         return null;
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable String id) {
-        productRepository.deleteById(id);
+    @DeleteMapping("{name}")
+    public void deleteProduct(@PathVariable String name) {
+        productRepository.deleteByName(name);
     }
-
 
 }
 

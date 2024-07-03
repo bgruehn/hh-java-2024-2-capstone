@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 type Category = {
     id: number;
@@ -13,9 +14,16 @@ const AddCategoryForm: React.FC = () => {
         setCategory(prevCategory => ({ ...prevCategory, [name]: value }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('Submitted Category:', category);
+        try {
+            const response = await axios.post('/api/categories', category);
+            alert(`Kategorie ${response.data.name} erfolgreich hinzugefügt`);
+            setCategory({ id: Math.floor(Math.random() * 1000), name: ''});
+        } catch (error) {
+            console.error('Error adding category:', error);
+            alert('Kategorie hinzufügen fehlgeschlagen');
+        }
     };
 
     return (

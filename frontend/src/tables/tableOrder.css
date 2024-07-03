@@ -1,0 +1,60 @@
+.add-product-container {
+    border: 3px solid white;
+    border-radius: 10px;
+    background-color: #823333;
+    box-shadow: 5px 10px 10px dimgrey;
+    display: flex;
+    justify-content: center;
+}
+
+.head-add-product {
+    color: white;
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 40px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.category-buttons {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.category-button-add {
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    border: solid 2px white;
+    box-shadow: 1px 2px 2px #bdbdbd;
+    transition: all 0.3s ease;
+}
+
+.category-button-add:hover {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.custom-button-add {
+    align-content: center;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    border: solid 2px white;
+    box-shadow: 1px 2px 2px #bdbdbd;
+    transition: all 0.3s ease;
+}
+
+.category-button-add:hover {
+    background-color: #f8f9fa;
+    color: #333;
+}
